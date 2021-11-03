@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 import json
 
-import MyPhoto
+import DingChang90_xiaomi_MyPhoto
 
 
 def handler(event, context):
