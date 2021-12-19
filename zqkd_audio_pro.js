@@ -12,6 +12,8 @@
 docker exec -it qinglong bash -c "npm install -g crypto-js"
 */
 
+new Env('中青看点听歌');
+
 //以下时长单位都是秒
 let targetTime = 7200 //要刷的目标时长
 let step = 360 //每次更新的时长
