@@ -22,8 +22,7 @@ https://yuekandian.yichengw.cn/api/v1/member/profile url script-request-header h
 hostname = yuekandian.yichengw.cn
 */
 
-const jsname = '阅多多'
-const $ = Env(jsname)
+const $ = new Env("看点宝/阅多多/悦看点");
 const notifyFlag = 1; //0为关闭通知，1为打开通知,默认为1
 const logDebug = 0
 
