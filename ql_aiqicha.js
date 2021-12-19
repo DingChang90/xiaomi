@@ -7,7 +7,7 @@
  多账号请用@分割Cookie  格式:ck1@ck2@ck2 青龙变量aqcCookies qx和v2p不可用
  感谢Wenmoux的爱妻查任务脚本 Wenmoux github地址:https://github.com/Wenmoux/checkbox 作者仅完善和修改
 */
-const $ = new Env("爱妻查日常任务");
+const $ = new Env("爱企查日常任务");
 const axios = require("axios")
 const notify = $.isNode() ? require("./sendNotify") : "";
 aqcookie = $.isNode() ? process.env.aqcCookies : "";
