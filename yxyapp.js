@@ -103,7 +103,7 @@ function panduan(timeout = 0) {
         if (result.yxycode == 1) {
           $.log(`\n【脚本状态】：${result.yxymsg}`)
           $.message += `\n【脚本状态】：${result.yxymsg}`
-          await dutang() 
+          await dutang()
           await $.wait(1000)
           await login() //登录
           await $.wait(1000)
@@ -130,26 +130,26 @@ function panduan(timeout = 0) {
 //每日毒鸡汤
 function dutang(timeout = 0) {
   return new Promise((resolve) => {
-      let url = {
-          url: `https://api.oick.cn/dutang/api.php`,
-          headers: {
-              'Accept': 'application/json',
-              'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
-          },
+    let url = {
+      url: `https://api.oick.cn/dutang/api.php`,
+      headers: {
+        'Accept': 'application/json',
+        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
+      },
+    }
+    $.get(url, async (err, resp, data) => {
+      try {
+        result = data
+        if (result.length != 0) {
+          $.log(`\n【今日鸡汤】：${result}`)
+          $.message += `\n【今日鸡汤】：${result}`
+        }
+      } catch (e) {
+        $.logErr(e, resp);
+      } finally {
+        resolve()
       }
-      $.get(url, async (err, resp, data) => {
-          try {
-              result = data
-              if (result.length != 0) {
-                  $.log(`\n【今日鸡汤】：${result}`)
-                  $.message += `\n【今日鸡汤】：${result}`
-              }
-          } catch (e) {
-              $.logErr(e, resp);
-          } finally {
-              resolve()
-          }
-      }, timeout)
+    }, timeout)
   })
 }
 //登录
@@ -174,7 +174,7 @@ function login(timeout = 0) {
           $.log(`\n【登录状态】：${result.message}`)
           $.message += `\n【登录状态】：${result.message}`
           await $.wait(2000)
-          await sign()//签到
+          await doQiandao()//签到
         } else {
           $.log(`\n【登录状态】：${result.message}`)
           $.message += `\n【登录状态】：${result.message}`
@@ -188,9 +188,9 @@ function login(timeout = 0) {
   })
 }
 //签到
-function sign(timeout = 0) {
+function doQiandao(timeout = 0) {
   return new Promise((resolve) => {
-    let time=Math.round(new Date().getTime()/1000).toString()
+    let time = Math.round(new Date().getTime() / 1000).toString()
     let sign = MD5_Encrypt(`timestamp=${time}&token=${token}&type=1`)
     let url = {
       url: `${host}/api/v3/doQiandao/?timestamp=${time}`,
@@ -205,11 +205,11 @@ function sign(timeout = 0) {
       try {
         result = JSON.parse(data)
         if (result.errorcode == 0) {
-          $.log(`\n【签到状态】：`+ result.message)
-          $.message += `\n【签到状态】：`+ result.message
+          $.log(`\n【签到状态】：` + result.message)
+          $.message += `\n【签到状态】：` + result.message
         } else {
-          $.log(`\n【签到状态】：`+ result.message)
-          $.message += `\n【签到状态】：`+ result.message
+          $.log(`\n【签到状态】：` + result.message)
+          $.message += `\n【签到状态】：` + result.message
         }
       } catch (e) {
         $.logErr(e, resp);
@@ -253,8 +253,8 @@ function doSubmit(timeout = 0) {
 //获取题目
 function getRandGuess(timeout = 0) {
   return new Promise((resolve) => {
-    let time=Math.round(new Date().getTime()/1000).toString()
-    let sign = MD5_Encrypt(`timestamp=${time5}&token=${token}`)
+    let time = Math.round(new Date().getTime() / 1000).toString()
+    let sign = MD5_Encrypt(`timestamp=${time}&token=${token}`)
     let url = {
       url: `${host}/api/v3/getRandGuess/?timestamp=${time}&token=${token}`,
       headers: {
@@ -267,14 +267,14 @@ function getRandGuess(timeout = 0) {
       try {
         result = JSON.parse(data)
         if (result.errorcode == 0) {
-          tmid=result.data.item.id
-          daan=result.data.item['answer_ok']
-          $.log(`\n【题目id】：`+ tmid)
+          tmid = result.data.item.id
+          daan = result.data.item['answer_ok']
+          $.log(`\n【题目id】：` + tmid)
           //$.message += `\n【题目id】：`+ tmid
           await $.wait(3000)
           await doGuess(tmid, daan)
         } else {
-          $.log(`\n【错误信息】：`+ result.message)
+          $.log(`\n【错误信息】：` + result.message)
           //$.message += `\n【错误信息】：`+ result.message
         }
       } catch (e) {
@@ -345,7 +345,7 @@ function getSports(timeout = 0) {
               $.log(`\n【运动状态】：延迟5分钟执行下一个运动`)
               await $.wait(num * 60000) //返回时间乘以60秒
             }
-        }
+          }
         } else {
           $.log(`\n【运动状态】：已全部完成`)
           $.message += `\n【运动状态】：已全部完成`
@@ -393,7 +393,7 @@ function doSports(spid) {
 //查询可以领取能量
 function today_integral_record(timeout = 0) {
   return new Promise((resolve) => {
-    let time=Math.round(new Date().getTime()/1000).toString()
+    let time = Math.round(new Date().getTime() / 1000).toString()
     let sign = MD5_Encrypt(`key=appdiv_open&timestamp=${time}&token=${token}`)
     let url = {
       url: `${host}/api/v3/today_integral_record/?timestamp=${time}&key=appdiv_open&token=${token}`,
@@ -407,7 +407,7 @@ function today_integral_record(timeout = 0) {
       try {
         result = JSON.parse(data)
         if (result.errorcode == 0) {
-          $.log(`\n【查询能量】：`+ result.message)
+          $.log(`\n【查询能量】：` + result.message)
           //$.message += `\n【查询能量】：`+ result.message
           if (result.data) {
             List = result.data
@@ -418,7 +418,7 @@ function today_integral_record(timeout = 0) {
             }
           }
         } else {
-          $.log(`\n【查询能量】：`+ result.message)
+          $.log(`\n【查询能量】：` + result.message)
           //$.message += `\n【查询能量】：`+ result.message
         }
       } catch (e) {
@@ -447,10 +447,10 @@ function integral_record(num) {
       try {
         result = JSON.parse(data)
         if (result.errorcode == 0) {
-          $.log(`\n【领取能量】：`+ result.message)
+          $.log(`\n【领取能量】：` + result.message)
           //$.message += `\n【领取能量】：`+ result.message
         } else {
-          $.log(`\n【领取能量】：`+ result.message)
+          $.log(`\n【领取能量】：` + result.message)
           //$.message += `\n【领取能量】：`+ result.message
         }
       } catch (e) {
